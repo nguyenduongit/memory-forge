@@ -1,0 +1,13 @@
+{
+  "name": "Memory Forge — Nhớ số",
+  "short_name": "Memory Forge",
+  "description": "Rèn ghi nhớ số 00–99 với liên tưởng hình ảnh.",
+  "lang": "vi",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#101617",
+  "theme_color": "#101617",
+  "icons": [
+    { "src": "/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+  ]
+}

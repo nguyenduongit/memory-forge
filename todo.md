@@ -1,0 +1,25 @@
+# Project TODO
+
+- [x] Thiết kế hệ thống điều hướng PWA tiếng Việt cho Lộ trình, Bản đồ 100, Luyện tập và Thành tích.
+- [x] Thiết lập nhận diện hình ảnh và hướng mỹ thuật tối giản, tinh tế cho Memory Forge.
+- [x] Tạo catalog chuẩn 100 mã số từ 00 đến 99, giữ nguyên số 0 đứng đầu và nhãn tiếng Việt.
+- [x] Xây dựng lộ trình mở khóa 10 / 50 / 100 kèm tiến độ, độ chính xác, chuỗi ngày và XP.
+- [x] Xây dựng màn hình học theo thẻ có điều hướng, trạng thái khóa và phản hồi rõ ràng.
+- [x] Xây dựng luyện phản xạ số→hình, hình→số và trộn hai chiều với đo thời gian bằng performance.now().
+- [x] Hiển thị phản hồi đúng/sai tức thời, kết quả phiên, thành tích và đề xuất bài tiếp theo.
+- [x] Cho phép người học sửa nhãn liên tưởng và chọn ảnh thay thế an toàn cho từng mã số.
+- [x] Thiết kế dữ liệu tiến độ, kết quả phiên và thành tích qua backend dự án và Supabase.
+- [ ] Thêm manifest, service worker app-shell và trải nghiệm mất kết nối cho các màn hình cốt lõi.
+- [ ] Viết kiểm thử Vitest cho catalog, chấm điểm, mở khóa và cập nhật tiến độ.
+- [ ] Kiểm tra giao diện desktop/mobile, kiểm tra kiểu và xử lý lỗi runtime.
+- [ ] Chuẩn bị repository GitHub và cấu hình triển khai Vercel không chứa bí mật.
+- [ ] Lưu checkpoint hoàn chỉnh để người dùng xem và tự phát hành trên nền tảng quản lý.
+- [x] Tạo dự án Supabase riêng cho Memory Forge sau khi xác nhận chi phí và tổ chức.
+- [x] Thu hồi quyền gọi công khai đối với hàm trigger hồ sơ Supabase theo cảnh báo bảo mật.
+- [x] Đồng bộ toàn bộ catalog 00–99 theo đặc tả chuẩn, gồm nhãn và asset key tương ứng.
+- [x] Nối tiến độ phiên vào UI để thực thi luật mở nhóm, mở scope và thành tích thay vì chỉ hiển thị trạng thái ban đầu.
+- [x] Bổ sung luồng học flashcard riêng với thao tác trước/sau, trạng thái đã nhớ và thẻ khóa.
+- [x] Thêm điểm kết thúc phiên kèm accuracy, thời gian trung bình, XP, mốc mở khóa và bài gợi ý tiếp theo.
+- [x] Bổ sung kiểm tra MIME, dung lượng, pixel và hoàn nguyên ảnh cá nhân an toàn trước khi tải lên Supabase.
+- [x] Hoàn thiện hợp đồng backend cho dữ liệu phiên luyện và liên tưởng, tránh truy cập dữ liệu người dùng ngoài ranh giới ứng dụng.
+- [x] Lưu và hiển thị streak cùng item_performance thực để thành tích phản ánh dữ liệu đã đồng bộ.
