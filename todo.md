@@ -63,3 +63,5 @@
 - [x] Bỏ dependency tRPC khỏi luồng dữ liệu active và kiểm chứng đọc/ghi liên tưởng trực tiếp Supabase trên deployment Vercel.
 - [x] Xác minh một lượt Luyện tập hoặc Thi đấu trên Vercel ghi tiến độ game vào `app_progress` và `practice_sessions` hoặc `race_records`.
 - [x] Nâng phiên bản PWA cache cho bản Supabase trực tiếp để alias Vercel không giữ bundle cũ.
+- [x] Thiết kế lại màn hình module thành launchpad mobile không logo, heading hoặc mô tả giới thiệu.
+- [ ] Kiểm tra responsive, build, cache PWA và phát hành launchpad mới lên Vercel.

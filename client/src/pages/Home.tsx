@@ -17,9 +17,9 @@ const clusters: Cluster[] = [
 ];
 
 const modules = [
-  { id: "numbers", title: "Nhớ số", subtitle: "00 — 99", icon: "01", tone: "violet", enabled: true },
-  { id: "cards", title: "Nhớ bài", subtitle: "Sắp mở", icon: "♠", tone: "coral", enabled: false },
-  { id: "names", title: "Nhớ tên", subtitle: "Sắp mở", icon: "Aa", tone: "mint", enabled: false },
+  { id: "numbers", title: "Nhớ số", icon: "01", tone: "violet", enabled: true },
+  { id: "cards", title: "Nhớ bài", icon: "♠", tone: "coral", enabled: false },
+  { id: "names", title: "Nhớ tên", icon: "Aa", tone: "mint", enabled: false },
 ];
 
 export default function Home() {
@@ -117,11 +117,11 @@ export default function Home() {
 
   return <div className="bright-app"><div className="ambient ambient--one" /><div className="ambient ambient--two" />
     <main className="mobile-canvas">
-      {screen === "modules" && <section className="scene scene--modules">
-        <div className="top-line"><div className="wordmark"><span className="wordmark__mark">MF</span><b>Memory Forge</b></div></div>
-        <div className="headline"><span>TRÍ NHỚ MỖI NGÀY</span><h1>Chọn điều bạn<br /><em>muốn ghi nhớ.</em></h1></div>
-        <div className="module-stack">{modules.map((module, index) => <button key={module.id} disabled={!module.enabled} onClick={() => module.enabled && setScreen("mode")} className={`module-card module-card--${module.tone} ${!module.enabled ? "module-card--locked" : ""}`}>
-          <div className="module-card__icon">{module.enabled ? module.icon : <Lock size={18} />}</div><div className="module-card__copy"><b>{module.title}</b><small>{module.subtitle}</small></div>{module.enabled ? <span className="module-card__go"><ChevronRight size={19} /></span> : <span className="module-card__soon">Sớm</span>}<i className={`card-orb card-orb--${index + 1}`} />
+      {screen === "modules" && <section className="scene scene--launchpad" aria-label="Chọn module ghi nhớ">
+        <div className="launchpad-grid">{modules.map((module) => <button key={module.id} disabled={!module.enabled} onClick={() => module.enabled && setScreen("mode")} className={`launchpad-item launchpad-item--${module.tone} ${!module.enabled ? "launchpad-item--locked" : ""}`} aria-label={module.enabled ? module.title : `${module.title}, sắp mở`}>
+          <span className="launchpad-item__icon">{module.enabled ? module.icon : <Lock size={24} strokeWidth={2.2} />}</span>
+          <span className="launchpad-item__label">{module.title}</span>
+          {!module.enabled && <span className="launchpad-item__state">Sắp mở</span>}
         </button>)}</div>
       </section>}
 
