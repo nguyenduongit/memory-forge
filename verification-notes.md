@@ -40,3 +40,7 @@ Phiên Luyện tập tiếp tục ổn định sau hai câu trả lời bổ sun
 Đã đến câu cuối của phiên Luyện tập production; lượt trả lời kế tiếp sẽ kích hoạt lưu `practice_sessions` và `app_progress` trực tiếp vào Supabase.
 
 Phiên Luyện tập production đã hoàn tất với 10/10. Đối chiếu read-only trên Supabase xác nhận một hàng `practice_sessions` hoàn thành có `scope_size = 10`, `correct_count = 10`, `question_count = 10`; hàng `app_progress` chung có `total_xp = 100` và `current_streak = 1`. Đây là kiểm chứng ghi tiến độ game end-to-end từ UI Vercel trực tiếp vào Supabase.
+
+Deployment cache v5 từ commit `828913d` tải đúng màn hình module mobile trên URL production mới sau khi hoàn tất khởi tạo service worker.
+
+Trình duyệt xác nhận service worker active của deployment mới có URL `/sw.js?v=sync-v5`, khớp với cache mới thay vì phiên v4.
