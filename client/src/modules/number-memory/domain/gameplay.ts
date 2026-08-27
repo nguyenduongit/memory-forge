@@ -27,7 +27,11 @@ const shuffle = <T,>(items: T[]): T[] => {
 };
 
 export function createPracticeQuestion(scope: ScopeSize, direction: PracticeDirection, groupOrder = 0): PracticeQuestion {
-  const pool = scope === 10 ? numberCatalog.slice(groupOrder * 10, groupOrder * 10 + 10) : getScopeCatalog(scope);
+  const pool = scope === 10
+    ? numberCatalog.slice(groupOrder * 10, groupOrder * 10 + 10)
+    : scope === 50
+      ? numberCatalog.slice(groupOrder * 50, groupOrder * 50 + 50)
+      : getScopeCatalog(100);
   const item = pool[Math.floor(Math.random() * pool.length)]!;
   const resolvedDirection = direction === "mixed"
     ? (Math.random() > 0.5 ? "number_to_image" : "image_to_number")

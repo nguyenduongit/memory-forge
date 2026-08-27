@@ -1,9 +1,18 @@
 import { useMemo, useState } from "react";
 import { ArrowLeft, ArrowRight, BookOpen, Check, ChevronRight, Gamepad2, Lock, Play, Sparkles, Zap } from "lucide-react";
 import { numberCatalog } from "@/modules/number-memory/domain/catalog";
-import { calculateAccuracy, createPracticeQuestion, evaluateAnswer, type PracticeDirection } from "@/modules/number-memory/domain/gameplay";
+import { calculateAccuracy, createPracticeQuestion, evaluateAnswer, type PracticeDirection, type ScopeSize } from "@/modules/number-memory/domain/gameplay";
 
-type Screen = "modules" | "mode" | "learn" | "practice" | "result";
+type Screen = "modules" | "mode" | "clusters" | "learn" | "practice" | "result";
+type Activity = "learn" | "practice";
+type Cluster = { label: string; scope: ScopeSize; groupOrder: number; kind: "10" | "50" | "100" };
+
+const clusters: Cluster[] = [
+  ...Array.from({ length: 10 }, (_, groupOrder) => ({ label: `${String(groupOrder * 10).padStart(2, "0")}–${String(groupOrder * 10 + 9).padStart(2, "0")}`, scope: 10 as const, groupOrder, kind: "10" as const })),
+  { label: "00–49", scope: 50, groupOrder: 0, kind: "50" },
+  { label: "50–99", scope: 50, groupOrder: 1, kind: "50" },
+  { label: "00–99", scope: 100, groupOrder: 0, kind: "100" },
+];
 
 const modules = [
   { id: "numbers", title: "Nhớ số", subtitle: "00 — 99", icon: "01", tone: "violet", enabled: true },
@@ -14,8 +23,10 @@ const modules = [
 export default function Home() {
   const [screen, setScreen] = useState<Screen>(() => {
     const requested = new URLSearchParams(window.location.search).get("screen");
-    return requested === "mode" || requested === "learn" || requested === "practice" || requested === "result" ? requested : "modules";
+    return requested === "mode" || requested === "clusters" || requested === "learn" || requested === "practice" || requested === "result" ? requested : "modules";
   });
+  const [activity, setActivity] = useState<Activity>("learn");
+  const [cluster, setCluster] = useState<Cluster>(clusters[0]!);
   const [learnIndex, setLearnIndex] = useState(0);
   const [question, setQuestion] = useState(() => createPracticeQuestion(10, "mixed"));
   const [answered, setAnswered] = useState(0);
@@ -23,11 +34,16 @@ export default function Home() {
   const [selected, setSelected] = useState<string | null>(null);
   const [feedback, setFeedback] = useState<ReturnType<typeof evaluateAnswer> | null>(null);
 
-  const learnItem = numberCatalog[learnIndex]!;
+  const clusterItems = useMemo(() => {
+    if (cluster.scope === 10) return numberCatalog.slice(cluster.groupOrder * 10, cluster.groupOrder * 10 + 10);
+    if (cluster.scope === 50) return numberCatalog.slice(cluster.groupOrder * 50, cluster.groupOrder * 50 + 50);
+    return numberCatalog;
+  }, [cluster]);
+  const learnItem = clusterItems[learnIndex]!;
   const accuracy = useMemo(() => calculateAccuracy(correct, answered), [correct, answered]);
 
-  const beginPractice = () => {
-    setQuestion(createPracticeQuestion(10, "mixed")); setAnswered(0); setCorrect(0); setSelected(null); setFeedback(null); setScreen("practice");
+  const beginPractice = (nextCluster = cluster) => {
+    setCluster(nextCluster); setQuestion(createPracticeQuestion(nextCluster.scope, "mixed", nextCluster.groupOrder)); setAnswered(0); setCorrect(0); setSelected(null); setFeedback(null); setScreen("practice");
   };
   const chooseAnswer = (key: string) => {
     if (feedback) return;
@@ -37,10 +53,12 @@ export default function Home() {
     setSelected(key); setFeedback(result); setAnswered(nextAnswered); setCorrect(nextCorrect);
     window.setTimeout(() => {
       if (nextAnswered >= 10) setScreen("result");
-      else { setQuestion(createPracticeQuestion(10, "mixed")); setSelected(null); setFeedback(null); }
+      else { setQuestion(createPracticeQuestion(cluster.scope, "mixed", cluster.groupOrder)); setSelected(null); setFeedback(null); }
     }, 520);
   };
-  const back = () => setScreen(screen === "mode" ? "modules" : "mode");
+  const back = () => setScreen(screen === "mode" ? "modules" : screen === "clusters" ? "mode" : "clusters");
+  const chooseActivity = (nextActivity: Activity) => { setActivity(nextActivity); setScreen("clusters"); };
+  const chooseCluster = (nextCluster: Cluster) => { setCluster(nextCluster); setLearnIndex(0); activity === "learn" ? setScreen("learn") : beginPractice(nextCluster); };
 
   return <div className="bright-app"><div className="ambient ambient--one" /><div className="ambient ambient--two" />
     <main className="mobile-canvas">
@@ -52,13 +70,15 @@ export default function Home() {
         </button>)}</div>
       </section>}
 
-      {screen === "mode" && <section className="scene scene--mode"><button className="back-button" onClick={back}><ArrowLeft size={21} /></button><div className="mode-hero"><div className="module-mini">01</div><div><span>NHỚ SỐ</span><h1>00 — 99</h1></div></div><h2>Chọn chế độ</h2><div className="mode-options"><button className="mode-card mode-card--study" onClick={() => { setLearnIndex(0); setScreen("learn"); }}><span className="mode-card__icon"><BookOpen size={25} /></span><div><b>Học tập</b><small>Làm quen từng liên tưởng</small></div><ArrowRight size={20} /></button><button className="mode-card mode-card--play" onClick={beginPractice}><span className="mode-card__icon"><Zap size={25} /></span><div><b>Luyện tập</b><small>Chọn nhanh, nhớ sâu</small></div><ArrowRight size={20} /></button></div></section>}
+      {screen === "mode" && <section className="scene scene--mode"><button className="back-button" onClick={back}><ArrowLeft size={21} /></button><div className="mode-hero"><div className="module-mini">01</div><div><span>NHỚ SỐ</span><h1>00 — 99</h1></div></div><h2>Chọn chế độ</h2><div className="mode-options"><button className="mode-card mode-card--study" onClick={() => chooseActivity("learn")}><span className="mode-card__icon"><BookOpen size={25} /></span><div><b>Học tập</b><small>Xem thẻ theo cụm</small></div><ArrowRight size={20} /></button><button className="mode-card mode-card--play" onClick={() => chooseActivity("practice")}><span className="mode-card__icon"><Zap size={25} /></span><div><b>Luyện tập</b><small>Phản xạ theo cụm</small></div><ArrowRight size={20} /></button></div></section>}
 
-      {screen === "learn" && <section className="scene scene--learn"><div className="learn-top"><button className="back-button" onClick={back}><ArrowLeft size={21} /></button><span>{String(learnIndex + 1).padStart(2, "0")} / 10</span></div><div className="learn-progress"><i style={{ width: `${(learnIndex + 1) * 10}%` }} /></div><article className="memory-card"><span>{learnItem.key}</span><div className="memory-card__symbol">{learnItem.symbol}</div><h1>{learnItem.label}</h1></article><div className="learn-actions"><button disabled={learnIndex === 0} onClick={() => setLearnIndex((value) => value - 1)}>Trước</button><button className="learn-next" disabled={learnIndex === 9} onClick={() => setLearnIndex((value) => value + 1)}>Tiếp <ArrowRight size={18} /></button></div><button className="practice-link" onClick={beginPractice}><Play size={16} fill="currentColor" /> Chuyển sang luyện tập</button></section>}
+      {screen === "clusters" && <section className="scene scene--clusters"><div className="cluster-top"><button className="back-button" onClick={back}><ArrowLeft size={21} /></button><span>{activity === "learn" ? "HỌC TẬP" : "LUYỆN TẬP"}</span></div><div className="cluster-head"><h1>Chọn cụm số</h1><p>{activity === "learn" ? "Học từng cụm trước khi mở rộng." : "Luyện phản xạ với phạm vi bạn chọn."}</p></div><div className="cluster-section"><span>10 SỐ</span><div className="cluster-grid">{clusters.filter((item) => item.kind === "10").map((item) => <button key={item.label} onClick={() => chooseCluster(item)}>{item.label}</button>)}</div></div><div className="cluster-section"><span>50 SỐ</span><div className="cluster-row">{clusters.filter((item) => item.kind === "50").map((item) => <button key={item.label} onClick={() => chooseCluster(item)}>{item.label}<ChevronRight size={16} /></button>)}</div></div><button className="cluster-100" onClick={() => chooseCluster(clusters.find((item) => item.kind === "100")!)}><span>100 SỐ</span><b>00 — 99</b><ChevronRight size={20} /></button></section>}
 
-      {screen === "practice" && <section className="scene scene--practice"><div className="practice-top"><button className="back-button" onClick={back}><ArrowLeft size={21} /></button><div className="step-track">{Array.from({ length: 10 }, (_, index) => <i key={index} className={index < answered ? "done" : ""} />)}</div><span>{correct}</span></div><div className="quiz-copy"><span>{question.direction === "number_to_image" ? "SỐ → HÌNH" : "HÌNH → SỐ"}</span><h1>{question.direction === "number_to_image" ? "Hình nào đúng?" : "Số nào đúng?"}</h1></div><div className="quiz-core">{question.direction === "number_to_image" ? <b>{question.item.key}</b> : <><strong>{question.item.symbol}</strong><p>{question.item.label}</p></>}</div><div className={`answers ${question.direction === "image_to_number" ? "answers--numeric" : ""}`}>{question.options.map((option) => { const isRight = option.key === question.item.key; const isSelected = selected === option.key; return <button key={option.key} onClick={() => chooseAnswer(option.key)} className={`${isSelected ? (isRight ? "answer--right" : "answer--wrong") : ""} ${feedback && isRight ? "answer--reveal" : ""}`}>{question.direction === "number_to_image" ? <><span>{option.symbol}</span><b>{option.label}</b></> : <b>{option.key}</b>}</button>; })}</div>{feedback && <div className={`answer-toast ${feedback.correct ? "answer-toast--right" : ""}`}>{feedback.correct ? <><Check size={17} /> Chính xác</> : "Thử lại ở lượt sau"}</div>}</section>}
+      {screen === "learn" && <section className="scene scene--learn"><div className="learn-top"><button className="back-button" onClick={back}><ArrowLeft size={21} /></button><span>{cluster.label} · {String(learnIndex + 1).padStart(2, "0")} / {clusterItems.length}</span></div><div className="learn-progress"><i style={{ width: `${((learnIndex + 1) / clusterItems.length) * 100}%` }} /></div><article className="memory-card"><span>{learnItem.key}</span><div className="memory-card__symbol">{learnItem.symbol}</div><h1>{learnItem.label}</h1></article><div className="learn-actions"><button disabled={learnIndex === 0} onClick={() => setLearnIndex((value) => value - 1)}>Trước</button><button className="learn-next" disabled={learnIndex === clusterItems.length - 1} onClick={() => setLearnIndex((value) => value + 1)}>Tiếp <ArrowRight size={18} /></button></div><button className="practice-link" onClick={() => beginPractice(cluster)}><Play size={16} fill="currentColor" /> Luyện cụm {cluster.label}</button></section>}
 
-      {screen === "result" && <section className="scene scene--result"><div className="result-glow"><Gamepad2 size={34} /></div><span>PHIÊN ĐÃ XONG</span><h1>{accuracy}%</h1><p>độ chính xác</p><div className="result-score"><b>{correct}<small>đúng</small></b><i /><b>10<small>câu</small></b></div><button className="primary-cta" onClick={beginPractice}>Luyện lại <Play size={17} fill="currentColor" /></button><button className="secondary-cta" onClick={() => setScreen("modules")}>Chọn module khác</button></section>}
+      {screen === "practice" && <section className="scene scene--practice"><div className="practice-top"><button className="back-button" onClick={back}><ArrowLeft size={21} /></button><div className="step-track">{Array.from({ length: 10 }, (_, index) => <i key={index} className={index < answered ? "done" : ""} />)}</div><span>{correct}</span></div><div className="quiz-copy"><span>{cluster.label} · {question.direction === "number_to_image" ? "SỐ → HÌNH" : "HÌNH → SỐ"}</span><h1>{question.direction === "number_to_image" ? "Hình nào đúng?" : "Số nào đúng?"}</h1></div><div className="quiz-core">{question.direction === "number_to_image" ? <b>{question.item.key}</b> : <><strong>{question.item.symbol}</strong><p>{question.item.label}</p></>}</div><div className={`answers ${question.direction === "image_to_number" ? "answers--numeric" : ""}`}>{question.options.map((option) => { const isRight = option.key === question.item.key; const isSelected = selected === option.key; return <button key={option.key} onClick={() => chooseAnswer(option.key)} className={`${isSelected ? (isRight ? "answer--right" : "answer--wrong") : ""} ${feedback && isRight ? "answer--reveal" : ""}`}>{question.direction === "number_to_image" ? <><span>{option.symbol}</span><b>{option.label}</b></> : <b>{option.key}</b>}</button>; })}</div>{feedback && <div className={`answer-toast ${feedback.correct ? "answer-toast--right" : ""}`}>{feedback.correct ? <><Check size={17} /> Chính xác</> : "Thử lại ở lượt sau"}</div>}</section>}
+
+      {screen === "result" && <section className="scene scene--result"><div className="result-glow"><Gamepad2 size={34} /></div><span>PHIÊN ĐÃ XONG</span><h1>{accuracy}%</h1><p>độ chính xác</p><div className="result-score"><b>{correct}<small>đúng</small></b><i /><b>10<small>câu</small></b></div><button className="primary-cta" onClick={() => beginPractice()}>Luyện lại <Play size={17} fill="currentColor" /></button><button className="secondary-cta" onClick={() => setScreen("modules")}>Chọn module khác</button></section>}
     </main>
   </div>;
 }

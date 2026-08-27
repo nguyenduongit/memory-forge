@@ -43,4 +43,13 @@ describe("practice scoring", () => {
     expect(isGroupMastered({ sessions: 2, questions: 40, correct: 32, correctResponseMs: Array(32).fill(2100) })).toBe(true);
     expect(isGroupMastered({ sessions: 2, questions: 40, correct: 32, correctResponseMs: Array(32).fill(2900) })).toBe(false);
   });
+
+  it("keeps the second 50-number stage inside 50–99", () => {
+    for (let index = 0; index < 20; index += 1) {
+      const question = createPracticeQuestion(50, "mixed", 1);
+      expect(Number(question.item.key)).toBeGreaterThanOrEqual(50);
+      expect(Number(question.item.key)).toBeLessThanOrEqual(99);
+      question.options.forEach((option) => expect(Number(option.key)).toBeGreaterThanOrEqual(50));
+    }
+  });
 });
