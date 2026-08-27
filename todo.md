@@ -39,7 +39,7 @@
 - [x] Tính thời gian Thi đấu từ lúc dãy số xuất hiện đến khi nộp đáp án.
 - [x] Bổ sung lưu thành tích Thi đấu có fallback an toàn khi dữ liệu cục bộ không khả dụng.
 - [x] Hiển thị dãy số Thi đấu liên tục, không chia cụm hoặc chèn khoảng trắng giữa các chữ số.
-- [ ] Commit và đẩy bản sửa dãy Thi đấu liền mạch lên GitHub.
+- [x] Commit và đẩy bản sửa dãy Thi đấu liền mạch lên GitHub.
 - [x] Đẩy đúng source mobile-native hiện tại lên GitHub để Vercel nhận một commit mới thay vì commit 520e180.
 - [x] Tạo dự án Supabase riêng cho Memory Forge sau khi xác nhận chi phí và tổ chức.
 - [x] Thu hồi quyền gọi công khai đối với hàm trigger hồ sơ Supabase theo cảnh báo bảo mật.
