@@ -3,7 +3,6 @@ import { z } from "zod";
 const raceLengths = [20, 30, 40, 50, 60, 70, 80, 90, 100, 120, 150, 200] as const;
 
 export const raceRecordInput = z.object({
-  accessToken: z.string().min(1),
   sequenceLength: z.number().int().refine((value) => raceLengths.includes(value as (typeof raceLengths)[number]), "Độ dài dãy không được hỗ trợ."),
   correctPositions: z.number().int().min(0),
   totalPositions: z.number().int().min(1),

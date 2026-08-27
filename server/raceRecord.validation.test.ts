@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { raceRecordInput } from "./raceRecord.validation";
 
-const validRecord = { accessToken: "token", sequenceLength: 20, correctPositions: 20, totalPositions: 20, durationMs: 1234, exact: true };
+const validRecord = { sequenceLength: 20, correctPositions: 20, totalPositions: 20, durationMs: 1234, exact: true };
 
 describe("raceRecordInput", () => {
   it("chấp nhận thành tích hợp lệ với độ dài được hỗ trợ", () => {

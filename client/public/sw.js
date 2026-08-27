@@ -20,7 +20,7 @@ self.addEventListener("fetch", (event) => {
       const copy = response.clone();
       void caches.open(CACHE_NAME).then((cache) => cache.put("/", copy));
       return response;
-    }).catch(() => caches.match("/") as Promise<Response>));
+    }).catch(async () => (await caches.match("/")) ?? Response.error()));
     return;
   }
   event.respondWith(caches.match(event.request).then((cached) => cached || fetch(event.request).then((response) => {

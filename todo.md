@@ -54,3 +54,6 @@
 - [x] Bổ sung kiểm tra MIME, dung lượng, pixel và hoàn nguyên ảnh cá nhân an toàn trước khi tải lên Supabase.
 - [x] Hoàn thiện hợp đồng backend cho dữ liệu phiên luyện và liên tưởng, tránh truy cập dữ liệu người dùng ngoài ranh giới ứng dụng.
 - [x] Lưu và hiển thị streak cùng item_performance thực để thành tích phản ánh dữ liệu đã đồng bộ.
+- [x] Chuyển dữ liệu Memory Forge sang một hồ sơ dùng chung trên Supabase, không phụ thuộc user ID hay phiên đăng nhập.
+- [x] Bỏ Magic Link, auth UI và localStorage thành tích khỏi trải nghiệm mobile; gọi API dữ liệu chung trực tiếp.
+- [ ] Kiểm thử, commit và xác minh Vercel cho mô hình một người dùng không phụ thuộc thiết bị.

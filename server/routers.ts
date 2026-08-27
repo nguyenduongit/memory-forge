@@ -20,11 +20,11 @@ export const appRouter = router({
     }),
   }),
   memory: router({
-    snapshot: publicProcedure.input(z.object({ accessToken: z.string().min(1) })).query(({ input }) => readMemorySnapshot(input.accessToken)),
-    saveSession: publicProcedure.input(z.object({ accessToken: z.string().min(1), scope: z.union([z.literal(10), z.literal(50), z.literal(100)]), direction: z.enum(["number_to_image", "image_to_number", "mixed"]), correctCount: z.number().int().min(0), questionCount: z.number().int().min(1), meanResponseMs: z.number().int().positive().nullable(), totalXp: z.number().int().min(0), completedGroups: z.number().int().min(0).max(10), performances: z.array(z.object({ itemKey: z.string().regex(/^\d{2}$/), correct: z.boolean(), responseMs: z.number().int().positive() })).max(10) })).mutation(({ input }) => saveMemorySession(input)),
-    saveOverride: publicProcedure.input(z.object({ accessToken: z.string().min(1), itemKey: z.string().regex(/^\d{2}$/), label: z.string().max(64), imagePath: z.string().max(500).optional() })).mutation(({ input }) => saveMemoryOverride(input)),
-    deleteOverride: publicProcedure.input(z.object({ accessToken: z.string().min(1), itemKey: z.string().regex(/^\d{2}$/) })).mutation(({ input }) => deleteMemoryOverride(input)),
-    raceRecords: publicProcedure.input(z.object({ accessToken: z.string().min(1) })).query(({ input }) => readRaceRecords(input.accessToken)),
+    snapshot: publicProcedure.query(() => readMemorySnapshot()),
+    saveSession: publicProcedure.input(z.object({ scope: z.union([z.literal(10), z.literal(50), z.literal(100)]), direction: z.enum(["number_to_image", "image_to_number", "mixed"]), correctCount: z.number().int().min(0), questionCount: z.number().int().min(1), meanResponseMs: z.number().int().positive().nullable(), totalXp: z.number().int().min(0), completedGroups: z.number().int().min(0).max(10), performances: z.array(z.object({ itemKey: z.string().regex(/^\d{2}$/), correct: z.boolean(), responseMs: z.number().int().positive() })).max(10) })).mutation(({ input }) => saveMemorySession(input)),
+    saveOverride: publicProcedure.input(z.object({ itemKey: z.string().regex(/^\d{2}$/), label: z.string().max(64) })).mutation(({ input }) => saveMemoryOverride(input)),
+    deleteOverride: publicProcedure.input(z.object({ itemKey: z.string().regex(/^\d{2}$/) })).mutation(({ input }) => deleteMemoryOverride(input)),
+    raceRecords: publicProcedure.query(() => readRaceRecords()),
     saveRaceRecord: publicProcedure.input(raceRecordInput).mutation(({ input }) => saveRaceRecord(input)),
   }),
 
