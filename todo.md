@@ -66,3 +66,6 @@
 - [x] Thiết kế lại màn hình module thành launchpad mobile không logo, heading hoặc mô tả giới thiệu.
 - [x] Kiểm tra responsive, build, cache PWA và phát hành launchpad mới lên Vercel.
 - [x] Xác minh launchpad ở breakpoint rộng và service worker v6 active trên deployment production.
+- [x] Chuyển trang chủ thành danh sách thẻ một cột căn giữa dọc, không icon-grid, title hoặc mô tả.
+- [x] Chuyển màn Nhớ số thành danh sách thẻ một cột căn giữa dọc, chỉ giữ ba lựa chọn chế độ.
+- [ ] Kiểm tra responsive, cache PWA và phát hành danh sách thẻ tối giản lên Vercel.

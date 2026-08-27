@@ -1,4 +1,4 @@
-const CACHE_NAME = "memory-forge-shell-v6-launchpad";
+const CACHE_NAME = "memory-forge-shell-v7-launchpad-list";
 const APP_SHELL = ["/", "/manifest.webmanifest", "/icon.svg"];
 
 self.addEventListener("install", (event) => {
