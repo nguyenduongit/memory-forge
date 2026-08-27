@@ -76,6 +76,37 @@ export async function saveMemorySession(input: {
   return { completedGroups: nextCompletedGroups, currentStreak: streak };
 }
 
+export async function readRaceRecords(accessToken: string) {
+  const { client, user } = await getUser(accessToken);
+  const { data, error } = await client.from("race_records")
+    .select("sequence_length, duration_ms")
+    .eq("user_id", user.id)
+    .eq("exact", true)
+    .order("duration_ms", { ascending: true })
+    .limit(200);
+  if (error) throw error;
+  return (data ?? []).reduce<Record<number, number>>((records, row) => {
+    const length = Number(row.sequence_length);
+    records[length] = Math.min(records[length] ?? Number.POSITIVE_INFINITY, Number(row.duration_ms));
+    return records;
+  }, {});
+}
+
+export async function saveRaceRecord(input: { accessToken: string; sequenceLength: number; correctPositions: number; totalPositions: number; durationMs: number; exact: boolean }) {
+  const { client, user } = await getUser(input.accessToken);
+  const { error } = await client.from("race_records").insert({
+    user_id: user.id,
+    module_key: "number-memory",
+    sequence_length: input.sequenceLength,
+    correct_positions: input.correctPositions,
+    total_positions: input.totalPositions,
+    duration_ms: input.durationMs,
+    exact: input.exact,
+  });
+  if (error) throw error;
+  return readRaceRecords(input.accessToken);
+}
+
 export async function saveMemoryOverride(input: { accessToken: string; itemKey: string; label: string; imagePath?: string }) {
   const { client, user } = await getUser(input.accessToken);
   const { data: item, error: itemError } = await client.from("memory_items").select("id").eq("module_key", "number-memory").eq("item_key", input.itemKey).single();

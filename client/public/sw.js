@@ -1,4 +1,4 @@
-const CACHE_NAME = "memory-forge-shell-v3-mobile-native";
+const CACHE_NAME = "memory-forge-shell-v4-supabase-sync";
 const APP_SHELL = ["/", "/manifest.webmanifest", "/icon.svg"];
 
 self.addEventListener("install", (event) => {

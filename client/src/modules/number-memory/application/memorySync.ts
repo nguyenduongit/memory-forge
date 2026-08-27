@@ -43,6 +43,16 @@ export async function savePracticeSummary(input: {
   return memoryApi.memory.saveSession.mutate({ accessToken, ...input });
 }
 
+export async function loadRaceRecords() {
+  const accessToken = await requireAccessToken();
+  return memoryApi.memory.raceRecords.query({ accessToken });
+}
+
+export async function saveRaceRecord(input: { sequenceLength: number; correctPositions: number; totalPositions: number; durationMs: number; exact: boolean }) {
+  const accessToken = await requireAccessToken();
+  return memoryApi.memory.saveRaceRecord.mutate({ accessToken, ...input });
+}
+
 export async function savePersonalOverride(input: { user: User; itemKey: string; label: string; imageFile?: File }) {
   const accessToken = await requireAccessToken();
   const imagePath = input.imageFile ? await uploadPrivateImage(input.user, input.itemKey, input.imageFile) : undefined;

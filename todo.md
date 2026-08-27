@@ -40,6 +40,10 @@
 - [x] Bổ sung lưu thành tích Thi đấu có fallback an toàn khi dữ liệu cục bộ không khả dụng.
 - [x] Hiển thị dãy số Thi đấu liên tục, không chia cụm hoặc chèn khoảng trắng giữa các chữ số.
 - [x] Commit và đẩy bản sửa dãy Thi đấu liền mạch lên GitHub.
+- [x] Đổi visibility repository GitHub Memory Forge sang public và xác minh trạng thái.
+- [x] Kết nối lại UI mobile với Supabase/tRPC để tải và lưu tiến độ, XP, streak, liên tưởng và thành tích Thi đấu.
+- [x] Thêm trạng thái đồng bộ/đăng nhập tối giản cùng fallback offline không làm gián đoạn gameplay.
+- [x] Lưu thành tích Thi đấu xác thực vào Supabase qua tRPC và tải lại theo hồ sơ người chơi.
 - [x] Đẩy đúng source mobile-native hiện tại lên GitHub để Vercel nhận một commit mới thay vì commit 520e180.
 - [x] Tạo dự án Supabase riêng cho Memory Forge sau khi xác nhận chi phí và tổ chức.
 - [x] Thu hồi quyền gọi công khai đối với hàm trigger hồ sơ Supabase theo cảnh báo bảo mật.
