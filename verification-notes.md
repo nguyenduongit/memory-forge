@@ -44,3 +44,7 @@ Phiên Luyện tập production đã hoàn tất với 10/10. Đối chiếu rea
 Deployment cache v5 từ commit `828913d` tải đúng màn hình module mobile trên URL production mới sau khi hoàn tất khởi tạo service worker.
 
 Trình duyệt xác nhận service worker active của deployment mới có URL `/sw.js?v=sync-v5`, khớp với cache mới thay vì phiên v4.
+
+Launchpad từ commit `c7ae3fb` đã được kiểm tra trên deployment production: màn hình đầu chỉ gồm ba ô module icon-first, không có logo, heading hay nội dung giới thiệu. Ô `Nhớ số` vẫn dẫn chính xác tới màn chọn Học tập, Luyện tập và Thi đấu.
+
+Launchpad vẫn giữ bố cục mobile-canvas cân đối ở viewport rộng 1280px. Production xác nhận service worker active dùng `/sw.js?v=launchpad-v6`, nên cache cũ được thay bằng bản launchpad mới.
