@@ -54,3 +54,11 @@ Deployment production từ commit `2bc654c` hiển thị trang chủ là một d
 Deployment danh sách thẻ xác nhận service worker active dùng `/sw.js?v=launchpad-list-v7`, nên thiết bị đang dùng cache PWA của giao diện mới.
 
 Ở viewport rộng 1280px, cả trang chủ và màn chọn chế độ đều giữ một cột thẻ duy nhất, căn giữa theo chiều dọc trong mobile-canvas; không có heading, mô tả hay logo xuất hiện trở lại.
+
+Kiểm chứng preview cho luồng Luyện tập mới đã xác nhận: từ trang chủ vào `Nhớ số` hiển thị đúng ba thẻ mode; chọn `Luyện tập` sẽ đi tiếp vào màn lưới nhóm, thay vì tạo câu hỏi ngay.
+
+Màn Luyện tập hiển thị đủ 13 nhóm theo lưới kín màn hình: mười nhóm 10 số và hai nhóm 50 số là 12 ô hai cột; `00–99` chiếm hàng cuối. Chọn `50–99` mở đúng màn hai thẻ `Số → Hình` và `Hình → Số`, chưa tạo câu hỏi ở bước này.
+
+Chọn `Số → Hình` sau cụm `50–99` tạo câu hỏi số 70 với đáp án hình, đúng chiều và đúng phạm vi. Nút quay lại từ câu hỏi đưa người chơi về thẳng màn chọn chiều của cụm hiện tại.
+
+Chọn `Hình → Số` trên cùng cụm tạo câu hỏi hình điện thoại cổ với bốn phương án số đều nằm trong `50–99`, xác nhận cả hai hướng phản xạ đi qua màn chọn chiều mới.

@@ -5,7 +5,7 @@ import { calculateAccuracy, createPracticeQuestion, evaluateAnswer, type Practic
 import { createDigitSequence, formatRaceTime, RACE_LENGTHS, scoreDigitSequence, type RaceLength } from "@/modules/number-memory/domain/race";
 import { loadLearnerSnapshot, loadRaceRecords, savePersonalOverride, savePracticeSummary, saveRaceRecord } from "@/modules/number-memory/application/memorySync";
 
-type Screen = "modules" | "mode" | "clusters" | "learn" | "practice" | "result" | "race-setup" | "race-preview" | "race-entry" | "race-result";
+type Screen = "modules" | "mode" | "clusters" | "practice-clusters" | "practice-direction" | "learn" | "practice" | "result" | "race-setup" | "race-preview" | "race-entry" | "race-result";
 type Activity = "learn" | "practice";
 type Cluster = { label: string; scope: ScopeSize; groupOrder: number; kind: "10" | "50" | "100" };
 
@@ -25,10 +25,11 @@ const modules = [
 export default function Home() {
   const [screen, setScreen] = useState<Screen>(() => {
     const requested = new URLSearchParams(window.location.search).get("screen");
-    return requested === "mode" || requested === "clusters" || requested === "learn" || requested === "practice" || requested === "result" || requested === "race-setup" ? requested : "modules";
+    return requested === "mode" || requested === "clusters" || requested === "practice-clusters" || requested === "practice-direction" || requested === "learn" || requested === "practice" || requested === "result" || requested === "race-setup" ? requested : "modules";
   });
   const [activity, setActivity] = useState<Activity>("learn");
   const [cluster, setCluster] = useState<Cluster>(clusters[0]!);
+  const [practiceDirection, setPracticeDirection] = useState<Exclude<PracticeDirection, "mixed">>("number_to_image");
   const [learnIndex, setLearnIndex] = useState(0);
   const [question, setQuestion] = useState(() => createPracticeQuestion(10, "mixed"));
   const [answered, setAnswered] = useState(0);
@@ -73,8 +74,8 @@ export default function Home() {
     }).catch(() => { /* Gameplay vẫn hiển thị nếu API đang khởi động lại. */ });
   }, []);
 
-  const beginPractice = (nextCluster = cluster) => {
-    setCluster(nextCluster); setQuestion(createPracticeQuestion(nextCluster.scope, "mixed", nextCluster.groupOrder)); setAnswered(0); setCorrect(0); setAttempts([]); setSelected(null); setFeedback(null); setScreen("practice");
+  const beginPractice = (nextCluster = cluster, nextDirection = practiceDirection) => {
+    setCluster(nextCluster); setQuestion(createPracticeQuestion(nextCluster.scope, nextDirection, nextCluster.groupOrder)); setAnswered(0); setCorrect(0); setAttempts([]); setSelected(null); setFeedback(null); setScreen("practice");
   };
   const chooseAnswer = (key: string) => {
     if (feedback) return;
@@ -87,10 +88,10 @@ export default function Home() {
       if (nextAnswered >= 10) {
         const sessionAttempts = [...attempts, attempt];
         const nextTotalXp = totalXp + sessionAttempts.reduce((sum, item) => sum + item.xpEarned, 0);
-        void savePracticeSummary({ scope: cluster.scope, direction: "mixed", correctCount: nextCorrect, questionCount: nextAnswered, meanResponseMs: Math.round(sessionAttempts.reduce((total, item) => total + item.responseMs, 0) / nextAnswered), totalXp: nextTotalXp, completedGroups, performances: sessionAttempts }).then((saved) => { setTotalXp(nextTotalXp); setCompletedGroups(saved.completedGroups); setCurrentStreak(saved.currentStreak); }).catch(() => { /* Không thay đổi màn kết quả khi mạng tạm lỗi. */ });
+        void savePracticeSummary({ scope: cluster.scope, direction: practiceDirection, correctCount: nextCorrect, questionCount: nextAnswered, meanResponseMs: Math.round(sessionAttempts.reduce((total, item) => total + item.responseMs, 0) / nextAnswered), totalXp: nextTotalXp, completedGroups, performances: sessionAttempts }).then((saved) => { setTotalXp(nextTotalXp); setCompletedGroups(saved.completedGroups); setCurrentStreak(saved.currentStreak); }).catch(() => { /* Không thay đổi màn kết quả khi mạng tạm lỗi. */ });
         setScreen("result");
       }
-      else { setQuestion(createPracticeQuestion(cluster.scope, "mixed", cluster.groupOrder)); setSelected(null); setFeedback(null); }
+      else { setQuestion(createPracticeQuestion(cluster.scope, practiceDirection, cluster.groupOrder)); setSelected(null); setFeedback(null); }
     }, 520);
   };
   const startRace = () => { setRaceSequence(createDigitSequence(raceLength)); setRaceEntry(""); setRaceScore(null); setRaceTime(0); setRaceStartedAt(performance.now()); setScreen("race-preview"); };
@@ -111,9 +112,17 @@ export default function Home() {
     if (!label || label.length > 64) return;
     try { await savePersonalOverride({ itemKey: learnItem.key, label }); setCustomLabels((previous) => ({ ...previous, [learnItem.key]: label })); setAssociationOpen(false); } catch { /* Giữ sheet mở để người chơi thử lại nếu API lỗi. */ }
   };
-  const back = () => setScreen(screen === "mode" ? "modules" : screen === "clusters" || screen === "race-setup" ? "mode" : "clusters");
-  const chooseActivity = (nextActivity: Activity) => { setActivity(nextActivity); setScreen("clusters"); };
-  const chooseCluster = (nextCluster: Cluster) => { setCluster(nextCluster); setLearnIndex(0); activity === "learn" ? setScreen("learn") : beginPractice(nextCluster); };
+  const back = () => {
+    if (screen === "mode") setScreen("modules");
+    else if (screen === "clusters" || screen === "practice-clusters" || screen === "race-setup") setScreen("mode");
+    else if (screen === "practice-direction") setScreen("practice-clusters");
+    else if (screen === "practice") setScreen("practice-direction");
+    else setScreen("clusters");
+  };
+  const chooseActivity = (nextActivity: Activity) => { setActivity(nextActivity); setScreen(nextActivity === "practice" ? "practice-clusters" : "clusters"); };
+  const chooseCluster = (nextCluster: Cluster) => { setCluster(nextCluster); setLearnIndex(0); setScreen("learn"); };
+  const choosePracticeCluster = (nextCluster: Cluster) => { setCluster(nextCluster); setScreen("practice-direction"); };
+  const choosePracticeDirection = (nextDirection: Exclude<PracticeDirection, "mixed">) => { setPracticeDirection(nextDirection); beginPractice(cluster, nextDirection); };
 
   return <div className="bright-app"><div className="ambient ambient--one" /><div className="ambient ambient--two" />
     <main className="mobile-canvas">
@@ -125,6 +134,10 @@ export default function Home() {
       </section>}
 
       {screen === "mode" && <section className="scene scene--mode-launchpad"><button className="back-button mode-launchpad__back" onClick={back} aria-label="Quay lại"><ArrowLeft size={21} /></button><div className="mode-launchpad-list"><button className="mode-launchpad-card mode-launchpad-card--study" onClick={() => chooseActivity("learn")}><BookOpen size={28} /><span>Học tập</span></button><button className="mode-launchpad-card mode-launchpad-card--play" onClick={() => chooseActivity("practice")}><Zap size={28} /><span>Luyện tập</span></button><button className="mode-launchpad-card mode-launchpad-card--race" onClick={() => setScreen("race-setup")}><Trophy size={28} /><span>Thi đấu</span></button></div></section>}
+
+      {screen === "practice-clusters" && <section className="scene scene--practice-clusters"><button className="back-button practice-launchpad__back" onClick={back} aria-label="Quay lại"><ArrowLeft size={21} /></button><div className="practice-cluster-grid">{clusters.map((item) => <button key={item.label} onClick={() => choosePracticeCluster(item)} className={item.kind === "100" ? "practice-cluster-card practice-cluster-card--all" : "practice-cluster-card"}>{item.label}</button>)}</div></section>}
+
+      {screen === "practice-direction" && <section className="scene scene--practice-direction"><button className="back-button practice-launchpad__back" onClick={back} aria-label="Quay lại"><ArrowLeft size={21} /></button><div className="practice-direction-list"><button className="practice-direction-card practice-direction-card--number" onClick={() => choosePracticeDirection("number_to_image")}><span>01</span><b>Số → Hình</b></button><button className="practice-direction-card practice-direction-card--image" onClick={() => choosePracticeDirection("image_to_number")}><span>◉</span><b>Hình → Số</b></button></div></section>}
 
       {screen === "race-setup" && <section className="scene scene--race"><div className="cluster-top"><button className="back-button" onClick={back}><ArrowLeft size={21} /></button><span>THI ĐẤU</span></div><div className="race-head"><div className="race-icon"><Trophy size={27} /></div><h1>Chọn độ dài dãy</h1><p>Ghi nhớ dãy ngẫu nhiên rồi nhập lại nhanh và chính xác.</p></div><div className="race-lengths">{RACE_LENGTHS.map((length) => <button key={length} className={raceLength === length ? "active" : ""} onClick={() => setRaceLength(length)}>{length}</button>)}</div><div className="record-line"><Timer size={16} /><span>Kỷ lục {raceLength} số</span><b>{raceRecords[raceLength] ? formatRaceTime(raceRecords[raceLength]) : "—"}</b></div><button className="primary-cta" onClick={startRace}>Tạo dãy số <ArrowRight size={17} /></button></section>}
 

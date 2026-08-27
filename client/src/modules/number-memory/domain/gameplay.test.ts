@@ -44,6 +44,11 @@ describe("practice scoring", () => {
     expect(isGroupMastered({ sessions: 2, questions: 40, correct: 32, correctResponseMs: Array(32).fill(2900) })).toBe(false);
   });
 
+  it("keeps the explicitly selected practice direction for either launchpad choice", () => {
+    expect(createPracticeQuestion(10, "number_to_image", 0).direction).toBe("number_to_image");
+    expect(createPracticeQuestion(10, "image_to_number", 0).direction).toBe("image_to_number");
+  });
+
   it("keeps the second 50-number stage inside 50–99", () => {
     for (let index = 0; index < 20; index += 1) {
       const question = createPracticeQuestion(50, "mixed", 1);

@@ -70,3 +70,6 @@
 - [x] Chuyển màn Nhớ số thành danh sách thẻ một cột căn giữa dọc, chỉ giữ ba lựa chọn chế độ.
 - [x] Kiểm tra responsive, cache PWA và phát hành danh sách thẻ tối giản lên Vercel.
 - [x] Xác minh danh sách thẻ v7 ở viewport rộng cho cả trang chủ và chọn chế độ.
+- [x] Thiết kế lưới Luyện tập 13 nhóm kín màn hình: 12 ô hai cột và 100 số toàn hàng cuối, không title/mô tả.
+- [x] Thêm bước chọn Hình–số hoặc Số–hình sau khi chọn nhóm Luyện tập trước khi tạo câu hỏi.
+- [ ] Kiểm thử phạm vi nhóm, hai chiều Luyện tập, responsive và phát hành bản mới.
