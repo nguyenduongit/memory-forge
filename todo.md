@@ -21,7 +21,10 @@
 - [x] Kiểm thử end-to-end các thao tác chạm cho học thẻ, luyện tập, bản đồ và thành tích sau redesign.
 - [x] Commit và đẩy bản tái thiết kế mobile-native lên repository GitHub.
 - [x] Đồng bộ lại deployment/cache Vercel để URL công khai phục vụ đúng UI mobile-native mới.
-- [ ] Đẩy đúng source mobile-native hiện tại lên GitHub để Vercel nhận một commit mới thay vì commit 520e180.
+- [x] Tối giản trang chính thành chọn module, sau đó chọn đúng hai chế độ Học tập hoặc Luyện tập.
+- [x] Thay giao diện tối sang React mobile sáng, hiện đại với glow, animation và transition mượt.
+- [x] Loại bỏ hoàn toàn các khối giới thiệu, ôn nhanh, chọn đường đi, dashboard và điều hướng dư thừa.
+- [x] Đẩy đúng source mobile-native hiện tại lên GitHub để Vercel nhận một commit mới thay vì commit 520e180.
 - [x] Tạo dự án Supabase riêng cho Memory Forge sau khi xác nhận chi phí và tổ chức.
 - [x] Thu hồi quyền gọi công khai đối với hàm trigger hồ sơ Supabase theo cảnh báo bảo mật.
 - [x] Đồng bộ toàn bộ catalog 00–99 theo đặc tả chuẩn, gồm nhãn và asset key tương ứng.
