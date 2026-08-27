@@ -9,10 +9,10 @@
 - [x] Hiển thị phản hồi đúng/sai tức thời, kết quả phiên, thành tích và đề xuất bài tiếp theo.
 - [x] Cho phép người học sửa nhãn liên tưởng và chọn ảnh thay thế an toàn cho từng mã số.
 - [x] Thiết kế dữ liệu tiến độ, kết quả phiên và thành tích qua backend dự án và Supabase.
-- [ ] Thêm manifest, service worker app-shell và trải nghiệm mất kết nối cho các màn hình cốt lõi.
-- [ ] Viết kiểm thử Vitest cho catalog, chấm điểm, mở khóa và cập nhật tiến độ.
-- [ ] Kiểm tra giao diện desktop/mobile, kiểm tra kiểu và xử lý lỗi runtime.
-- [ ] Chuẩn bị repository GitHub và cấu hình triển khai Vercel không chứa bí mật.
+- [x] Thêm manifest, service worker app-shell và trải nghiệm mất kết nối cho các màn hình cốt lõi.
+- [x] Viết kiểm thử Vitest cho catalog, chấm điểm, mở khóa và cập nhật tiến độ.
+- [x] Kiểm tra giao diện desktop/mobile, kiểm tra kiểu và xử lý lỗi runtime.
+- [x] Chuẩn bị repository GitHub và cấu hình triển khai Vercel không chứa bí mật.
 - [ ] Lưu checkpoint hoàn chỉnh để người dùng xem và tự phát hành trên nền tảng quản lý.
 - [x] Tạo dự án Supabase riêng cho Memory Forge sau khi xác nhận chi phí và tổ chức.
 - [x] Thu hồi quyền gọi công khai đối với hàm trigger hồ sơ Supabase theo cảnh báo bảo mật.
