@@ -12,7 +12,10 @@ const modules = [
 ];
 
 export default function Home() {
-  const [screen, setScreen] = useState<Screen>("modules");
+  const [screen, setScreen] = useState<Screen>(() => {
+    const requested = new URLSearchParams(window.location.search).get("screen");
+    return requested === "mode" || requested === "learn" || requested === "practice" || requested === "result" ? requested : "modules";
+  });
   const [learnIndex, setLearnIndex] = useState(0);
   const [question, setQuestion] = useState(() => createPracticeQuestion(10, "mixed"));
   const [answered, setAnswered] = useState(0);
