@@ -76,3 +76,5 @@ Kiểm tra lại ở viewport rộng 1280×720 xác nhận lưới 13 nhóm và 
 Sau khi bỏ chiều cao canvas ép buộc ở màn chọn, kiểm tra DOM của lưới Luyện tập xác nhận `overflow = false`: chiều cao tài liệu không vượt quá viewport đang hiển thị.
 
 Màn chọn chiều cũng đo được `overflow = false` sau cùng thay đổi canvas, đồng thời cả hai thẻ vẫn căn giữa dọc như thiết kế.
+
+Deployment Vercel từ commit `74f524e` đã phục vụ đúng lưới 13 nhóm kín màn hình. Service worker active là `/sw.js?v=practice-grid-v9`, xác nhận PWA cập nhật bản ràng buộc viewport mới.

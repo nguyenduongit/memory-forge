@@ -76,4 +76,4 @@
 - [x] Xác minh hai màn chọn nhóm và chọn chiều Luyện tập ở viewport rộng, không scroll hoặc tràn nội dung.
 - [x] Sửa mobile-canvas ở viewport rộng để các màn chọn Luyện tập không ép chiều cao gây cuộn.
 - [x] Xác minh lại không có overflow dọc ở viewport rộng sau khi sửa canvas.
-- [ ] Phát hành ràng buộc lưới kín màn hình cùng cache PWA mới sau kiểm tra điện thoại thấp.
+- [x] Phát hành ràng buộc lưới kín màn hình cùng cache PWA mới sau kiểm tra điện thoại thấp.
