@@ -72,4 +72,8 @@
 - [x] Xác minh danh sách thẻ v7 ở viewport rộng cho cả trang chủ và chọn chế độ.
 - [x] Thiết kế lưới Luyện tập 13 nhóm kín màn hình: 12 ô hai cột và 100 số toàn hàng cuối, không title/mô tả.
 - [x] Thêm bước chọn Hình–số hoặc Số–hình sau khi chọn nhóm Luyện tập trước khi tạo câu hỏi.
-- [ ] Kiểm thử phạm vi nhóm, hai chiều Luyện tập, responsive và phát hành bản mới.
+- [x] Kiểm thử phạm vi nhóm, hai chiều Luyện tập, responsive và phát hành bản mới.
+- [x] Xác minh hai màn chọn nhóm và chọn chiều Luyện tập ở viewport rộng, không scroll hoặc tràn nội dung.
+- [x] Sửa mobile-canvas ở viewport rộng để các màn chọn Luyện tập không ép chiều cao gây cuộn.
+- [x] Xác minh lại không có overflow dọc ở viewport rộng sau khi sửa canvas.
+- [ ] Phát hành ràng buộc lưới kín màn hình cùng cache PWA mới sau kiểm tra điện thoại thấp.

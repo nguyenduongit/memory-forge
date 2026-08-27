@@ -62,3 +62,17 @@ Màn Luyện tập hiển thị đủ 13 nhóm theo lưới kín màn hình: mư
 Chọn `Số → Hình` sau cụm `50–99` tạo câu hỏi số 70 với đáp án hình, đúng chiều và đúng phạm vi. Nút quay lại từ câu hỏi đưa người chơi về thẳng màn chọn chiều của cụm hiện tại.
 
 Chọn `Hình → Số` trên cùng cụm tạo câu hỏi hình điện thoại cổ với bốn phương án số đều nằm trong `50–99`, xác nhận cả hai hướng phản xạ đi qua màn chọn chiều mới.
+
+Deployment Vercel từ commit `efc3cb4` tải đúng danh sách thẻ launchpad và dẫn vào ba mode của Nhớ số. Luồng production tiếp tục xác minh ở bước kế tiếp là màn lưới nhóm Luyện tập.
+
+Trên production, chọn `Luyện tập` hiển thị lưới 13 nhóm vừa khít màn hình, không title hoặc mô tả. Nhóm cuối `00–99` chiếm toàn hàng dưới và dẫn đến đúng hai thẻ chọn chiều, trước khi bất kỳ câu hỏi nào được tạo.
+
+Service worker active trên deployment Luyện tập là `/sw.js?v=practice-flow-v8`, xác nhận PWA đã dùng cache của luồng ba bước hiện hành.
+
+Sau khi ràng buộc chiều cao lưới theo viewport, kiểm tra ở khung điện thoại 375×667 xác nhận cả 13 nhóm, gồm hàng `00–99`, hiển thị trọn trong một màn hình và không cần cuộn.
+
+Kiểm tra lại ở viewport rộng 1280×720 xác nhận lưới 13 nhóm và màn hai chiều đều giữ trong mobile-canvas, không tràn nội dung hoặc phát sinh cuộn ở trang chọn.
+
+Sau khi bỏ chiều cao canvas ép buộc ở màn chọn, kiểm tra DOM của lưới Luyện tập xác nhận `overflow = false`: chiều cao tài liệu không vượt quá viewport đang hiển thị.
+
+Màn chọn chiều cũng đo được `overflow = false` sau cùng thay đổi canvas, đồng thời cả hai thẻ vẫn căn giữa dọc như thiết kế.

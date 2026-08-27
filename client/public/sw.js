@@ -1,4 +1,4 @@
-const CACHE_NAME = "memory-forge-shell-v8-practice-flow";
+const CACHE_NAME = "memory-forge-shell-v9-practice-grid";
 const APP_SHELL = ["/", "/manifest.webmanifest", "/icon.svg"];
 
 self.addEventListener("install", (event) => {
