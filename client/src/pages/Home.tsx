@@ -38,7 +38,7 @@ export default function Home() {
   const [authMessage, setAuthMessage] = useState("");
 
   useEffect(() => {
-    if ("serviceWorker" in navigator) void navigator.serviceWorker.register("/sw.js");
+    if ("serviceWorker" in navigator) void navigator.serviceWorker.register("/sw.js?v=mobile-native-3");
   }, []);
 
   useEffect(() => {
