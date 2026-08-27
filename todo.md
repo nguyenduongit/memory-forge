@@ -62,3 +62,4 @@
 - [x] Chuyển lớp đồng bộ active sang Supabase browser client trực tiếp để Vercel static gọi DB dùng chung được.
 - [x] Bỏ dependency tRPC khỏi luồng dữ liệu active và kiểm chứng đọc/ghi liên tưởng trực tiếp Supabase trên deployment Vercel.
 - [x] Xác minh một lượt Luyện tập hoặc Thi đấu trên Vercel ghi tiến độ game vào `app_progress` và `practice_sessions` hoặc `race_records`.
+- [x] Nâng phiên bản PWA cache cho bản Supabase trực tiếp để alias Vercel không giữ bundle cũ.
