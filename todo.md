@@ -57,7 +57,8 @@
 - [x] Chuyển dữ liệu Memory Forge sang một hồ sơ dùng chung trên Supabase, không phụ thuộc user ID hay phiên đăng nhập.
 - [x] Bỏ Magic Link, auth UI và localStorage thành tích khỏi trải nghiệm mobile; gọi API dữ liệu chung trực tiếp.
 - [x] Kiểm thử, commit và xác minh Vercel cho mô hình một người dùng không phụ thuộc thiết bị.
-- [ ] Xác minh endpoint snapshot trên Vercel hoạt động không yêu cầu đăng nhập và trả về dữ liệu dùng chung.
-- [ ] Xác minh một thao tác ghi thực trên Vercel đi vào Supabase dùng chung mà không dựa vào localStorage.
-- [ ] Chuyển lớp đồng bộ active sang Supabase browser client trực tiếp để Vercel static gọi DB dùng chung được.
-- [ ] Bỏ dependency tRPC cho tiến độ game và kiểm chứng đọc/ghi Supabase trực tiếp trên deployment Vercel.
+- [x] Xác minh web Vercel đọc dữ liệu chung trực tiếp từ Supabase, không yêu cầu đăng nhập.
+- [x] Xác minh một thao tác ghi thực trên Vercel đi vào Supabase dùng chung mà không dựa vào localStorage.
+- [x] Chuyển lớp đồng bộ active sang Supabase browser client trực tiếp để Vercel static gọi DB dùng chung được.
+- [x] Bỏ dependency tRPC khỏi luồng dữ liệu active và kiểm chứng đọc/ghi liên tưởng trực tiếp Supabase trên deployment Vercel.
+- [x] Xác minh một lượt Luyện tập hoặc Thi đấu trên Vercel ghi tiến độ game vào `app_progress` và `practice_sessions` hoặc `race_records`.
