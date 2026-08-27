@@ -48,3 +48,9 @@ Trình duyệt xác nhận service worker active của deployment mới có URL 
 Launchpad từ commit `c7ae3fb` đã được kiểm tra trên deployment production: màn hình đầu chỉ gồm ba ô module icon-first, không có logo, heading hay nội dung giới thiệu. Ô `Nhớ số` vẫn dẫn chính xác tới màn chọn Học tập, Luyện tập và Thi đấu.
 
 Launchpad vẫn giữ bố cục mobile-canvas cân đối ở viewport rộng 1280px. Production xác nhận service worker active dùng `/sw.js?v=launchpad-v6`, nên cache cũ được thay bằng bản launchpad mới.
+
+Deployment production từ commit `2bc654c` hiển thị trang chủ là một danh sách ba thẻ dọc, căn giữa theo chiều dọc, không logo, heading hoặc mô tả. Thẻ `Nhớ số` dẫn tới danh sách ba thẻ `Học tập`, `Luyện tập`, `Thi đấu` cũng không có title hay mô tả.
+
+Deployment danh sách thẻ xác nhận service worker active dùng `/sw.js?v=launchpad-list-v7`, nên thiết bị đang dùng cache PWA của giao diện mới.
+
+Ở viewport rộng 1280px, cả trang chủ và màn chọn chế độ đều giữ một cột thẻ duy nhất, căn giữa theo chiều dọc trong mobile-canvas; không có heading, mô tả hay logo xuất hiện trở lại.

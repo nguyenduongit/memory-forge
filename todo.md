@@ -68,4 +68,5 @@
 - [x] Xác minh launchpad ở breakpoint rộng và service worker v6 active trên deployment production.
 - [x] Chuyển trang chủ thành danh sách thẻ một cột căn giữa dọc, không icon-grid, title hoặc mô tả.
 - [x] Chuyển màn Nhớ số thành danh sách thẻ một cột căn giữa dọc, chỉ giữ ba lựa chọn chế độ.
-- [ ] Kiểm tra responsive, cache PWA và phát hành danh sách thẻ tối giản lên Vercel.
+- [x] Kiểm tra responsive, cache PWA và phát hành danh sách thẻ tối giản lên Vercel.
+- [x] Xác minh danh sách thẻ v7 ở viewport rộng cho cả trang chủ và chọn chế độ.
