@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Outfit:wght@400;500;600;700;800&display=swap');
 @import "tailwindcss";
+.digit-sequence{display:block!important;text-align:center;word-break:break-all}.digit-sequence span{display:block!important;padding:8px 4px!important;background:transparent!important;font:700 17px/1.65 "DM Mono",monospace!important;letter-spacing:.08em}
 @import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap');
 
 :root,.headline h1,.module-card__icon,.module-mini,.mode-hero h1,.scene--mode h2,.memory-card h1,.quiz-copy h1,.quiz-core>b,.quiz-core p,.answers--numeric button,.scene--result h1,.result-score b{font-family:"Be Vietnam Pro",Arial,"Helvetica Neue",sans-serif!important}
