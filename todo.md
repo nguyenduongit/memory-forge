@@ -24,6 +24,8 @@
 - [x] Tối giản trang chính thành chọn module, sau đó chọn đúng hai chế độ Học tập hoặc Luyện tập.
 - [x] Thay giao diện tối sang React mobile sáng, hiện đại với glow, animation và transition mượt.
 - [x] Loại bỏ hoàn toàn các khối giới thiệu, ôn nhanh, chọn đường đi, dashboard và điều hướng dư thừa.
+- [x] Thay typography display hiện tại bằng sans-serif hiện đại trên toàn bộ UI mobile.
+- [x] Chuyển sang palette đậm, tương phản cao và xác minh khả năng đọc trên màn hình điện thoại.
 - [x] Đẩy đúng source mobile-native hiện tại lên GitHub để Vercel nhận một commit mới thay vì commit 520e180.
 - [x] Tạo dự án Supabase riêng cho Memory Forge sau khi xác nhận chi phí và tổ chức.
 - [x] Thu hồi quyền gọi công khai đối với hàm trigger hồ sơ Supabase theo cảnh báo bảo mật.
