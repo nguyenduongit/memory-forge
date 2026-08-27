@@ -32,6 +32,12 @@
 - [x] Bổ sung màn chọn chặng/cụm cho Nhớ số: từng cụm 10, hai chặng 50 và tổng hợp 100.
 - [x] Dùng cụm đã chọn để giới hạn thẻ Học tập và bộ câu hỏi Luyện tập.
 - [x] Bảo đảm engine luyện tập tách đúng hai chặng 50 số: 00–49 và 50–99, kèm kiểm thử phạm vi.
+- [x] Thêm chế độ Thi đấu cho Nhớ số với lựa chọn độ dài dãy từ 20 đến 200 số.
+- [x] Tạo gameplay xem dãy ngẫu nhiên, ghi nhớ, nhập lại và tính thời gian thực hiện.
+- [x] Lưu và hiển thị thành tích thi đấu theo độ dài dãy số.
+- [x] Kiểm thử tạo dãy, chấm điểm và tính thời gian của chế độ Thi đấu.
+- [x] Tính thời gian Thi đấu từ lúc dãy số xuất hiện đến khi nộp đáp án.
+- [x] Bổ sung lưu thành tích Thi đấu có fallback an toàn khi dữ liệu cục bộ không khả dụng.
 - [x] Đẩy đúng source mobile-native hiện tại lên GitHub để Vercel nhận một commit mới thay vì commit 520e180.
 - [x] Tạo dự án Supabase riêng cho Memory Forge sau khi xác nhận chi phí và tổ chức.
 - [x] Thu hồi quyền gọi công khai đối với hàm trigger hồ sơ Supabase theo cảnh báo bảo mật.
