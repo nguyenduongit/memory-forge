@@ -12,3 +12,7 @@ Preview sau khi chỉnh UI không còn hiển thị nút, email hay trạng thá
 Endpoint `memory.snapshot` trả về HTTP 200 trong trình duyệt không có phiên đăng nhập, với cấu trúc tiến độ chung `{ totalXp, completedGroups, currentStreak, overrides }`. Điều này xác nhận tRPC không còn yêu cầu access token cho mô hình một người dùng.
 
 Sau khi sửa handler fallback của service worker, `navigator.serviceWorker.getRegistration()` xác nhận worker đang active trên preview; UI trang chính không có form, nút hoặc thông báo đăng nhập.
+
+Commit `28b28e4` đã được đẩy lên GitHub. Deployment Vercel từ chính SHA này ở trạng thái `READY`; cả URL deployment và alias nhánh main đều trả về giao diện module mobile không còn thông tin đăng nhập.
+
+Preview sau khi chuyển lớp active sang Supabase browser client tải giao diện không đăng nhập và không phát sinh lỗi trong console trình duyệt.
