@@ -14,7 +14,7 @@
 - [x] Kiểm tra giao diện desktop/mobile, kiểm tra kiểu và xử lý lỗi runtime.
 - [x] Chuẩn bị repository GitHub và cấu hình triển khai Vercel không chứa bí mật.
 - [x] Lưu checkpoint hoàn chỉnh để người dùng xem và tự phát hành trên nền tảng quản lý.
-- [ ] Khắc phục deployment Vercel đang phục vụ mã nguồn thay vì giao diện Memory Forge và xác minh URL preview.
+- [x] Khắc phục deployment Vercel đang phục vụ mã nguồn thay vì giao diện Memory Forge và xác minh URL preview.
 - [x] Tạo dự án Supabase riêng cho Memory Forge sau khi xác nhận chi phí và tổ chức.
 - [x] Thu hồi quyền gọi công khai đối với hàm trigger hồ sơ Supabase theo cảnh báo bảo mật.
 - [x] Đồng bộ toàn bộ catalog 00–99 theo đặc tả chuẩn, gồm nhãn và asset key tương ứng.

@@ -124,6 +124,7 @@ export default function Home() {
         setSyncStatus("error");
       }
     };
+    if (!supabase) return;
     void supabase.auth.getUser().then(({ data }) => { void hydrate(data.user); });
     const { data: subscription } = supabase.auth.onAuthStateChange((_event, nextSession) => { void hydrate(nextSession?.user ?? null); });
     return () => subscription.subscription.unsubscribe();

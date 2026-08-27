@@ -8,12 +8,13 @@ export type OverrideMap = Record<string, { label?: string; signedUrl?: string }>
 export type LearnerSnapshot = { totalXp: number; completedGroups: number; currentStreak: number; overrides: OverrideMap };
 
 async function requireAccessToken() {
-  const { data } = await supabase.auth.getSession();
+  const { data } = await supabase!.auth.getSession();
   if (!data.session?.access_token) throw new Error("Hãy đăng nhập để đồng bộ dữ liệu.");
   return data.session.access_token;
 }
 
 export async function sendMagicLink(email: string) {
+  if (!supabase) throw new Error("Đồng bộ Supabase chưa được cấu hình cho môi trường này.");
   return supabase.auth.signInWithOtp({ email, options: { emailRedirectTo: window.location.origin } });
 }
 

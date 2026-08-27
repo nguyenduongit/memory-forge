@@ -23,6 +23,7 @@ export async function validateAndNormalizeImage(file: File): Promise<File> {
 
 export async function uploadPrivateImage(user: User, itemKey: string, file: File): Promise<string> {
   const path = `${user.id}/number-memory/${itemKey}/${crypto.randomUUID()}.webp`;
+  if (!supabase) throw new Error("Đồng bộ Supabase chưa được cấu hình cho môi trường này.");
   const { error } = await supabase.storage.from("memory-images").upload(path, file, { contentType: "image/webp", upsert: false });
   if (error) throw error;
   return path;
